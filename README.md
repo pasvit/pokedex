@@ -12,8 +12,8 @@ APIs available at: https://pokeapi.co
 - No external libraries
 - MVVM Pattern + State
 - Loading of the pokemon list with automatic pagination on scrolling
--App work even offline
--Unit Test
+- App work even offline
+- Unit Test
 
 ## Implementation
 
