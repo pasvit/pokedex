@@ -48,14 +48,13 @@ After analyzing the APIs, I have implemented 3 main backend calls.
 2. *fetchPokemonDetails* -> (pokemon type and stats)
 3. *fetchPokemonImageData* -> (Pokemon image data)<br>
 
-
- 1. I defined a baseUrl [https://pokeapi.co/api/v2/pokemon], which I invoked to get the total number of Pokemon, <br>the first Pokemon contained in the pokedex and the url to call to get the next pokemon.<br><br>
+    1. I defined a baseUrl [https://pokeapi.co/api/v2/pokemon], which I invoked to get the total number of Pokemon, <br>the first Pokemon contained in the pokedex and the url to call to get the next pokemon.<br><br>
  This last data allowed me to implement **the loading of the pokemon list with automatic pagination on scroll**.<br> i.e. when the user scrolls the list to the last pokemon just loaded, a subsequent call to the backend will be invoked <br>to recover the following pokemon. The VM will take care of binding it to the view.
  <br><br> **Note:** Since it is possible to define the number of Pokemon to receive using an offset (default: 20) which can be <br>defined as query params, this can also be used to anticipate the recovery of subsequent pokemon.
 <br><br>
- 2. I have got the pokemon details (type and stats) by invoking baseUrl + a path param like this:<br> [baseUrl + /{pokemon name}].
+    2. I have got the pokemon details (type and stats) by invoking baseUrl + a path param like this:<br> [baseUrl + /{pokemon name}].
 <br><br>
- 3. From the details it is possible to obtain the sprites objects containing the url of the pokemon images which I use for image data recovery.
+    3. From the details it is possible to obtain the sprites objects containing the url of the pokemon images which I use for image data recovery.
 
 Once the image has been retrieved, the binding of the VM to the view is done according to the logic described above.
 
