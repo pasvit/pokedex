@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="types" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+        <relationship name="stats" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PokemonStatEntity" inverseName="pokemon" inverseEntity="PokemonStatEntity"/>
+    </entity>
+    <entity name="PokemonStatEntity" representedClassName="PokemonStatEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="baseStat" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="pokemon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PokemonEntity" inverseName="stats" inverseEntity="PokemonEntity"/>
+    </entity>
+    <elements>
+        <element name="PokemonEntity" positionX="-73.73590087890625" positionY="-87.00955200195312" width="128" height="104"/>
+        <element name="PokemonStatEntity" positionX="217.2794799804688" positionY="0.354949951171875" width="128" height="74"/>
+    </elements>
+</model>
