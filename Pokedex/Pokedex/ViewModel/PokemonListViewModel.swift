@@ -189,8 +189,14 @@ class PokemonListViewModel {
         })
         pokemonsVM.sort{ $0.id! < $1.id!}
         
+        /// in case the user has a poor connection and closes the app while loading,
+        /// I prevent the saving of partial data in memory
+        /// 20 is the number of pokemon loaded on each call to the backend
+        /// limit is the query parameter to choose how many pokemon to download from fetchPokemons (limit default: 20)
+        let pokemonLimit = 20
+        
         let pokemonVMCount = pokemonsVM.count
-        let corruptedPokemonsCount = pokemonsVM.count % 20
+        let corruptedPokemonsCount = pokemonsVM.count % pokemonLimit
         if corruptedPokemonsCount != 0 && pokemonVMCount != pokedexCount {
             for _ in 0..<corruptedPokemonsCount {
                 if let id = pokemonsVM.last?.id {
