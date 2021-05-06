@@ -49,10 +49,10 @@ After analyzing the APIs, I have implemented 3 main backend calls.
 3. *fetchPokemonImageData* -> (Pokemon image data)<br>
 
     1. I defined a baseUrl [https://pokeapi.co/api/v2/pokemon], which I invoked to get the total number of Pokemon, <br>the first Pokemon contained in the pokedex and the url to call to get the next pokemon.<br><br>
- This last data allowed me to implement **the loading of the pokemon list with automatic pagination on scroll**.<br> i.e. when the user scrolls the list to the last pokemon just loaded, a subsequent call to the backend will be invoked <br>to recover the following pokemon. The VM will take care of binding it to the view.
- <br><br> **Note:** Since it is possible to define the number of Pokemon to receive using an offset (default: 0) which can be <br>defined as query params, this can also be used to anticipate the recovery of subsequent pokemon.
+ This last data allowed me to implement **the loading of the pokemon list with automatic pagination on scroll**.<br> i.e. when the user scrolls the list to the last pokemon just loaded, a subsequent call to the backend will be invoked to recover the following pokemon. The VM will take care of binding it to the view.
+ <br><br> **Note:** Since it is possible to define the number of Pokemon to receive using an offset (default: 0) which can be defined as query params, this can also be used to anticipate the recovery of subsequent pokemon.
 <br><br>
-    I use the offset by assigning it the total number of current pokemon to anticipate loading, when the user finishes scrolling.
+    I use the offset in fetchPokemons to assign it the total number of current pokemon and anticipate the loading, when the user ends the scrolling.
 
     2. I have got the pokemon details (type and stats) by invoking baseUrl + a path param like this:<br> [baseUrl + /{pokemon name}].
 <br><br>
