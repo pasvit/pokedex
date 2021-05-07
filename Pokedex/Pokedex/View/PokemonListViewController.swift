@@ -177,7 +177,7 @@ extension PokemonListViewController: UITableViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let isReachingEnd = scrollView.contentOffset.y >= 0
             && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
-        if isReachingEnd && !InternetConnectionManager.isConnectedToNetwork() {
+        if let isPokedexCompleted = self.pokemonListVM?.isPokedexCompleted, isReachingEnd && !InternetConnectionManager.isConnectedToNetwork(), !isPokedexCompleted {
             UIAlertController.showError(title: "Info", message: "Turn on connection if you want to load more pokemon") {
                 self.pokemonsTableView.tableFooterView?.isHidden = true
             }
