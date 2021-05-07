@@ -201,8 +201,14 @@ class PokemonListViewModel {
     func checkOfSavedPokemonConsistency(in inconsistentPokemonsVM: [PokemonViewModel]) -> [PokemonViewModel] {
         var pokemonsVM = inconsistentPokemonsVM
         
+        if pokemonsVM.first?.id != 1 {
+            CoreDataController.shared.reset {
+                pokemonsVM.removeAll()
+            }
+        }
+        
         ///elimination of non-contiguous ids
-        var isInconsistency: Bool = false
+        var inconsistentIndex: Int?
         for (index, pokemonVM) in pokemonsVM.enumerated() {
             if let pokemonVMId = pokemonVM.id {
                 let secondPokemonPosition = index+1
@@ -210,17 +216,16 @@ class PokemonListViewModel {
                     if let nextPokemonVMId = pokemonsVM[secondPokemonPosition].id {
                         ///since pokemon 898, ids change
                         if pokemonVMId != 898 && pokemonVMId+1 != nextPokemonVMId {
-                            isInconsistency = true
+                            inconsistentIndex = secondPokemonPosition
+                            break
                         }
                     }
                 }
             }
         }
         
-        if pokemonsVM.first?.id != 1 || isInconsistency {
-            CoreDataController.shared.reset {
-                pokemonsVM.removeAll()
-            }
+        if let index = inconsistentIndex {
+            pokemonsVM = Array(pokemonsVM[0..<index])
         }
         
         /// the number of pokemon saved in multiples of 20
