@@ -116,9 +116,7 @@ class PokemonListViewModel {
         if isPokedexCompleted {
             state = .pokedexCompleted
         } else if pokemons.firstIndex(where: { $0.id == pokemon.id }) == thresholdIndex {
-            if InternetConnectionManager.isConnectedToNetwork() {
                 loadMorePokemons()
-            }
         }
     }
     
@@ -189,16 +187,41 @@ class PokemonListViewModel {
         })
         pokemonsVM.sort{ $0.id! < $1.id!}
         
-        /// in case the user has a poor connection and closes the app while loading,
-        /// I prevent the saving of partial data in memory
+        self.pokemons = self.checkOfSavedPokemonConsistency(in: pokemonsVM)
+    }
+    
+    
+    /// in case the user has a poor connection and kills the app while loading,
+    /// I prevent the saving of partial data in memory
+    /// this function is only used in exceptional cases
+    func checkOfSavedPokemonConsistency(in inconsistentPokemonsVM: [PokemonViewModel]) -> [PokemonViewModel] {
+        var pokemonsVM = inconsistentPokemonsVM
+        
+        ///elimination of non-contiguous ids
+        for (index, pokemonVM) in pokemonsVM.enumerated() {
+            if let pokemonVMId = pokemonVM.id {
+                let firstPokemonPosition = index
+                let secondPokemonPosition = index+1
+                if pokemonsVM.count-1 > firstPokemonPosition {
+                    if let nextPokemonVMId = pokemonsVM[secondPokemonPosition].id {
+                        ///since pokemon 898, ids change
+                        if pokemonVMId != 898 && pokemonVMId+1 != nextPokemonVMId {
+                            pokemonsVM.remove(at: secondPokemonPosition)
+                        }
+                    }
+                }
+            }
+        }
+        
+        /// the number of pokemon saved in multiples of 20
         /// 20 is the number of pokemon loaded on each call to the backend
         /// limit is the query parameter to choose how many pokemon to download from fetchPokemons (limit default: 20)
         let pokemonLimit = 20
         
         let pokemonVMCount = pokemonsVM.count
-        let corruptedPokemonsCount = pokemonsVM.count % pokemonLimit
-        if corruptedPokemonsCount != 0 && pokemonVMCount != pokedexCount {
-            for _ in 0..<corruptedPokemonsCount {
+        let inconsistentPokemonsCount = pokemonsVM.count % pokemonLimit
+        if inconsistentPokemonsCount != 0 && pokemonVMCount != pokedexCount {
+            for _ in 0..<inconsistentPokemonsCount {
                 if let id = pokemonsVM.last?.id {
                     pokemonsVM.removeLast()
                     CoreDataController.shared.deletePokemon(by: id)
@@ -206,7 +229,6 @@ class PokemonListViewModel {
             }
         }
         
-        self.pokemons = pokemonsVM
+        return pokemonsVM
     }
-    
 }

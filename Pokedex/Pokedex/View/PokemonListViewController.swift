@@ -171,7 +171,9 @@ extension PokemonListViewController: UITableViewDelegate {
         }
         
         guard let navigationController = self.navigationController, let pokemonVM = pokemon, pokemonVM.arePokemonDetailsCompleted else { return }
-        AppCoordinator.shared.pokemonDetailTapped(navigationController: navigationController, pokemonVM: pokemonVM)
+        let detailViewController = PokemonDetailViewController()
+        detailViewController.pokemonVM = pokemonVM
+        navigationController.pushViewController(detailViewController, animated: true)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -184,7 +186,9 @@ extension PokemonListViewController: UITableViewDelegate {
         }
         
         if let pokemon = self.pokemonsVM?.last, !self.refreshControl.isRefreshing {
-            self.pokemonListVM?.loadMorePokemonsIfNeeded(currentPokemon: pokemon)
+            if InternetConnectionManager.isConnectedToNetwork() {
+                self.pokemonListVM?.loadMorePokemonsIfNeeded(currentPokemon: pokemon)
+            }
         }
     }
     

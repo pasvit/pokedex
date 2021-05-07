@@ -78,24 +78,20 @@ class PokemonDetailViewController: UIViewController {
     // ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
     //    MARK: - Private Var
     // \___________________________________________/
-    private(set) var pokemonVM: PokemonViewModel?
+    var pokemonVM: PokemonViewModel? {
+        didSet {
+            guard let pokemonItem = pokemonVM else {return}
+            pokemonItem.bindImageToView = { [weak self] in
+                DispatchQueue.main.async {
+                    self?.pokemonImageView.image = pokemonItem.image
+                }
+            }
+        }
+    }
     
     // ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
     //    MARK: - Life cycle
     // \_____________________________________________________________________/
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(pokemon: PokemonViewModel) {
-        self.pokemonVM = pokemon
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavigation()

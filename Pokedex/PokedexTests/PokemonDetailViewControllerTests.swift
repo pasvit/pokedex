@@ -31,7 +31,8 @@ class PokemonDetailViewControllerTests: XCTestCase {
         let pokemonViewModel = PokemonViewModel(id: pokemonId, name: pokemonName, types: pokemonTypes, stats: pokemonStats)
         
         //when
-        sut = PokemonDetailViewController(pokemon: pokemonViewModel)
+        sut = PokemonDetailViewController()
+        sut.pokemonVM = pokemonViewModel
         
         //then
         XCTAssert(sut.pokemonVM != nil)
@@ -46,7 +47,8 @@ class PokemonDetailViewControllerTests: XCTestCase {
         let pokemonViewModel = PokemonViewModel(id: pokemonId, name: pokemonName, types: pokemonTypes, stats: pokemonStats)
         
         //when
-        sut = PokemonDetailViewController(pokemon: pokemonViewModel)
+        sut = PokemonDetailViewController()
+        sut.pokemonVM = pokemonViewModel
         
         //then
         XCTAssert(!sut.pokemonVM!.name.isEmpty && (sut.pokemonVM!.id != nil) && !sut.pokemonVM!.types.isEmpty && !sut.pokemonVM!.stats.isEmpty)
@@ -61,7 +63,8 @@ class PokemonDetailViewControllerTests: XCTestCase {
         let pokemonViewModel = PokemonViewModel(id: pokemonId, name: pokemonName, types: pokemonTypes, stats: pokemonStats)
         
         //when
-        sut = PokemonDetailViewController(pokemon: pokemonViewModel)
+        sut = PokemonDetailViewController()
+        sut.pokemonVM = pokemonViewModel
         
         var rightTypes = false
         
@@ -86,7 +89,8 @@ class PokemonDetailViewControllerTests: XCTestCase {
         let pokemonViewModel = PokemonViewModel(id: pokemonId, name: pokemonName, types: pokemonTypes, stats: pokemonStats)
         
         //when
-        sut = PokemonDetailViewController(pokemon: pokemonViewModel)
+        sut = PokemonDetailViewController()
+        sut.pokemonVM = pokemonViewModel
         
         var rightStats = false
         
