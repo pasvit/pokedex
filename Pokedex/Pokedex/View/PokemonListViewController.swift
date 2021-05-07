@@ -104,12 +104,18 @@ class PokemonListViewController: UIViewController {
     }
     
     @objc private func refresh(_ sender: AnyObject) {
-        if let isLoading = self.pokemonListVM?.state.isLoading, !isLoading, InternetConnectionManager.isConnectedToNetwork() {
-            CoreDataController.shared.reset() { [weak self] in
-                self?.callToViewModelForUIUpdate()
+        if InternetConnectionManager.isConnectedToNetwork() {
+            if let isLoading = self.pokemonListVM?.state.isLoading, !isLoading {
+                CoreDataController.shared.reset() { [weak self] in
+                    self?.callToViewModelForUIUpdate()
+                    self?.refreshControl.endRefreshing()
+                }
+            }
+        } else {
+            UIAlertController.showError(title: "Info", message: "Turn on connection if you want to refresh pokemon") {
+                self.refreshControl.endRefreshing()
             }
         }
-        self.refreshControl.endRefreshing()
     }
     
 }
@@ -169,6 +175,14 @@ extension PokemonListViewController: UITableViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let isReachingEnd = scrollView.contentOffset.y >= 0
+            && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
+        if isReachingEnd && !InternetConnectionManager.isConnectedToNetwork() {
+            UIAlertController.showError(title: "Info", message: "Turn on connection if you want to load more pokemon") {
+                self.pokemonsTableView.tableFooterView?.isHidden = true
+            }
+        }
+        
         if let pokemon = self.pokemonsVM?.last, !self.refreshControl.isRefreshing {
             self.pokemonListVM?.loadMorePokemonsIfNeeded(currentPokemon: pokemon)
         }
