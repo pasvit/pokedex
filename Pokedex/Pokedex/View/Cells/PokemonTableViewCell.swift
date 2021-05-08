@@ -69,15 +69,13 @@ class PokemonTableViewCell: UITableViewCell {
             
             pokemon?.bindImageToView = { [weak self] in
                 DispatchQueue.main.async {
-                    if let isTableViewDecelerating = self?.tableView?.isDecelerating, !isTableViewDecelerating {
-                        self?.tableView?.reloadData()
-                    }
+                    self?.reloadRow(with: self?.pokemonImageView, duration: 0.3, animations: { self?.pokemonImageView.image = pokemonItem.image })
                 }
             }
             
             pokemon?.bindColorToView = { [weak self] in
                 DispatchQueue.main.async {
-                    self?.tableView?.reloadData()
+                    self?.reloadRow(with: self?.containerView, duration: 0.3, animations: { self?.containerView.backgroundColor = self?.pokemon?.color })
                 }
             }
         }
@@ -110,6 +108,17 @@ class PokemonTableViewCell: UITableViewCell {
         pokemonImageView.trailingAnchor.constraint(equalTo:self.containerView.trailingAnchor, constant:-20).isActive = true
         pokemonImageView.bottomAnchor.constraint(equalTo:self.containerView.bottomAnchor, constant:0).isActive = true
         pokemonImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    }
+    
+    private func reloadRow(with view: UIView?, duration: TimeInterval, animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        guard let view = view else { return }
+        UIView.transition(with: view,
+                          duration: duration,
+                          options: .transitionCrossDissolve,
+                          animations: animations,
+                          completion: nil)
+        
+        self.layoutIfNeeded()
     }
     
 }

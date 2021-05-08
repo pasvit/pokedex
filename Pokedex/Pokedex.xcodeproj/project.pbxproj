@@ -34,8 +34,6 @@
 		1A6122B7263DF045002AC34E /* UIApplication+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6122B6263DF045002AC34E /* UIApplication+extensions.swift */; };
 		1A6387E8263F617E00D9A195 /* PokemonListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6387E7263F617D00D9A195 /* PokemonListViewControllerTests.swift */; };
 		1A6387EA263F632100D9A195 /* PokemonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6387E9263F632100D9A195 /* PokemonViewModelTests.swift */; };
-		1A690F982640A012003EAAFC /* UITableViewCell+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A690F972640A012003EAAFC /* UITableViewCell+extensions.swift */; };
-		1A8CA049264073F9006B17D3 /* UITableView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8CA048264073F9006B17D3 /* UITableView+extensions.swift */; };
 		1A96F12926414D0A004BDE0B /* PokemonListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A96F12826414D0A004BDE0B /* PokemonListViewModelTests.swift */; };
 		1AC9471D263EFD9F00CFC0AA /* InternetConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC9471C263EFD9F00CFC0AA /* InternetConnectionManager.swift */; };
 /* End PBXBuildFile section */
@@ -82,8 +80,6 @@
 		1A6122B6263DF045002AC34E /* UIApplication+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+extensions.swift"; sourceTree = "<group>"; };
 		1A6387E7263F617D00D9A195 /* PokemonListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewControllerTests.swift; sourceTree = "<group>"; };
 		1A6387E9263F632100D9A195 /* PokemonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModelTests.swift; sourceTree = "<group>"; };
-		1A690F972640A012003EAAFC /* UITableViewCell+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+extensions.swift"; sourceTree = "<group>"; };
-		1A8CA048264073F9006B17D3 /* UITableView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extensions.swift"; sourceTree = "<group>"; };
 		1A96F12826414D0A004BDE0B /* PokemonListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModelTests.swift; sourceTree = "<group>"; };
 		1AC9471C263EFD9F00CFC0AA /* InternetConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,8 +198,6 @@
 				1A61229F263DA793002AC34E /* String+extensions.swift */,
 				1A6122B4263DEFEC002AC34E /* UIAlertViewController+extensions.swift */,
 				1A6122B6263DF045002AC34E /* UIApplication+extensions.swift */,
-				1A8CA048264073F9006B17D3 /* UITableView+extensions.swift */,
-				1A690F972640A012003EAAFC /* UITableViewCell+extensions.swift */,
 				1A13E35C2641E5F900F76156 /* URL+extensions.swift */,
 			);
 			path = Extensions;
@@ -348,7 +342,6 @@
 				1A6122B7263DF045002AC34E /* UIApplication+extensions.swift in Sources */,
 				1A612244263D86C4002AC34E /* AppDelegate.swift in Sources */,
 				1A6122A0263DA793002AC34E /* String+extensions.swift in Sources */,
-				1A8CA049264073F9006B17D3 /* UITableView+extensions.swift in Sources */,
 				1A6122A5263DC8B2002AC34E /* CoreDataController.swift in Sources */,
 				1AC9471D263EFD9F00CFC0AA /* InternetConnectionManager.swift in Sources */,
 				1A612246263D86C4002AC34E /* SceneDelegate.swift in Sources */,
@@ -356,7 +349,6 @@
 				1A6122B1263DE8BE002AC34E /* PokemonViewModel.swift in Sources */,
 				1A612281263D8874002AC34E /* Pokedex.swift in Sources */,
 				1A612297263D904E002AC34E /* UIView+extension.swift in Sources */,
-				1A690F982640A012003EAAFC /* UITableViewCell+extensions.swift in Sources */,
 				1A61229B263D95F7002AC34E /* UIColor+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,7 +510,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DY5WBCUTCL;
 				INFOPLIST_FILE = Pokedex/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -538,7 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = DY5WBCUTCL;
 				INFOPLIST_FILE = Pokedex/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
