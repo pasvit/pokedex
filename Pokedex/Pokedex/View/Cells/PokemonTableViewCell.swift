@@ -69,12 +69,16 @@ class PokemonTableViewCell: UITableViewCell {
             
             pokemon?.bindImageToView = { [weak self] in
                 DispatchQueue.main.async {
-                    self?.tableView?.reloadData()
+                    if let isTableViewDecelerating = self?.tableView?.isDecelerating, !isTableViewDecelerating {
+                        self?.tableView?.reloadData()
+                    }
                 }
             }
             
             pokemon?.bindColorToView = { [weak self] in
-                // BINDED WITH IMAGE
+                DispatchQueue.main.async {
+                    self?.tableView?.reloadData()
+                }
             }
         }
     }
@@ -107,5 +111,5 @@ class PokemonTableViewCell: UITableViewCell {
         pokemonImageView.bottomAnchor.constraint(equalTo:self.containerView.bottomAnchor, constant:0).isActive = true
         pokemonImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
-
+    
 }
