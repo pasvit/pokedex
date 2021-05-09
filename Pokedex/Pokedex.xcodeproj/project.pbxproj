@@ -36,7 +36,6 @@
 		1A6387EA263F632100D9A195 /* PokemonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6387E9263F632100D9A195 /* PokemonViewModelTests.swift */; };
 		1A96F12926414D0A004BDE0B /* PokemonListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A96F12826414D0A004BDE0B /* PokemonListViewModelTests.swift */; };
 		1AC9471D263EFD9F00CFC0AA /* InternetConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC9471C263EFD9F00CFC0AA /* InternetConnectionManager.swift */; };
-		1AF679EC26474B3C00DA82A8 /* UITableViewCell+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF679EB26474B3C00DA82A8 /* UITableViewCell+extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +82,6 @@
 		1A6387E9263F632100D9A195 /* PokemonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewModelTests.swift; sourceTree = "<group>"; };
 		1A96F12826414D0A004BDE0B /* PokemonListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModelTests.swift; sourceTree = "<group>"; };
 		1AC9471C263EFD9F00CFC0AA /* InternetConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectionManager.swift; sourceTree = "<group>"; };
-		1AF679EB26474B3C00DA82A8 /* UITableViewCell+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +199,6 @@
 				1A6122B4263DEFEC002AC34E /* UIAlertViewController+extensions.swift */,
 				1A6122B6263DF045002AC34E /* UIApplication+extensions.swift */,
 				1A13E35C2641E5F900F76156 /* URL+extensions.swift */,
-				1AF679EB26474B3C00DA82A8 /* UITableViewCell+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -339,7 +336,6 @@
 				1A612288263D891E002AC34E /* PokemonService.swift in Sources */,
 				1A612280263D8874002AC34E /* Pokemon.swift in Sources */,
 				1A6122B5263DEFEC002AC34E /* UIAlertViewController+extensions.swift in Sources */,
-				1AF679EC26474B3C00DA82A8 /* UITableViewCell+extensions.swift in Sources */,
 				1A61224E263D86C4002AC34E /* Pokedex.xcdatamodeld in Sources */,
 				1A612248263D86C4002AC34E /* PokemonListViewController.swift in Sources */,
 				1A6122AF263DCE99002AC34E /* Log.swift in Sources */,
