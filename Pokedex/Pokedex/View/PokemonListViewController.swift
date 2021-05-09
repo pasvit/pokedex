@@ -48,6 +48,11 @@ class PokemonListViewController: UIViewController {
         callToViewModelForUIUpdate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.pokemonsTableView.reloadData()
+    }
+    
     // ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
     //    MARK: - Private Methods
     // \_____________________________________________________________________/

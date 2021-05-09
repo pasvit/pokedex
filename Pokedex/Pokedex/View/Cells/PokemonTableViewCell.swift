@@ -57,6 +57,13 @@ class PokemonTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.pokemonImageView.image = nil
+        self.nameLabel.text = ""
+        self.containerView.backgroundColor = .white
+    }
+    
     // ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
     //    MARK: - Public var
     // \_____________________________________________________________________/
@@ -69,15 +76,13 @@ class PokemonTableViewCell: UITableViewCell {
             
             pokemon?.bindImageToView = { [weak self] in
                 DispatchQueue.main.async {
-                    self?.pokemonImageView.image = pokemonItem.image
-                    self?.tableView?.reloadData()
+                    self?.reloadRow(with: self?.pokemonImageView, duration: 0.1, animations: { self?.pokemonImageView.image = self?.pokemon?.image })
                 }
             }
             
             pokemon?.bindColorToView = { [weak self] in
                 DispatchQueue.main.async {
-                    self?.containerView.backgroundColor = self?.pokemon?.color
-                    self?.tableView?.reloadData()
+                    self?.reloadRow(with: self?.containerView, duration: 0.1, animations: { self?.containerView.backgroundColor = self?.pokemon?.color })
                 }
             }
         }
@@ -110,6 +115,18 @@ class PokemonTableViewCell: UITableViewCell {
         pokemonImageView.trailingAnchor.constraint(equalTo:self.containerView.trailingAnchor, constant:-20).isActive = true
         pokemonImageView.bottomAnchor.constraint(equalTo:self.containerView.bottomAnchor, constant:0).isActive = true
         pokemonImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    }
+    
+    private func reloadRow(with view: UIView?, duration: TimeInterval, animations: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        guard let view = view else { return }
+        UIView.transition(with: view,
+                          duration: duration,
+                          options: .transitionCrossDissolve,
+                          animations: animations,
+                          completion: completion)
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
     
 }

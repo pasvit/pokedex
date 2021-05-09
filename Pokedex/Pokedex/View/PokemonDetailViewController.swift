@@ -83,7 +83,7 @@ class PokemonDetailViewController: UIViewController {
             guard let pokemonItem = pokemonVM else {return}
             pokemonItem.bindImageToView = { [weak self] in
                 DispatchQueue.main.async {
-                    self?.pokemonImageView.image = pokemonItem.image
+                    self?.pokemonImageView.image = self?.pokemonVM?.image
                 }
             }
         }
