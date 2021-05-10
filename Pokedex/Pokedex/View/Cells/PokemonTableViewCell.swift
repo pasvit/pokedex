@@ -110,6 +110,8 @@ class PokemonTableViewCell: UITableViewCell {
         nameLabel.bottomAnchor.constraint(equalTo:self.containerView.bottomAnchor, constant:15).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo:self.pokemonImageView.centerYAnchor).isActive = true
         
+        nameLabel.trailingAnchor.constraint(greaterThanOrEqualTo: pokemonImageView.leadingAnchor, constant: 20).isActive = true
+        
         pokemonImageView.centerYAnchor.constraint(equalTo:self.containerView.centerYAnchor).isActive = true
         pokemonImageView.topAnchor.constraint(equalTo:self.containerView.topAnchor, constant:0).isActive = true
         pokemonImageView.trailingAnchor.constraint(equalTo:self.containerView.trailingAnchor, constant:-20).isActive = true

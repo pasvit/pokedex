@@ -25,29 +25,75 @@ class PokemonDetailViewController: UIViewController {
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
         img.translatesAutoresizingMaskIntoConstraints = false
-        img.layer.cornerRadius = 100
         img.clipsToBounds = true
+        img.layer.cornerRadius = 70
         img.backgroundColor = .white
+        img.layer.masksToBounds = false
+        img.layer.shadowOffset = CGSize(width: 0, height: 10)
+        img.layer.shadowColor = UIColor.black.cgColor
+        img.layer.shadowRadius = 10
+        img.layer.shadowOpacity = 0.25
         return img
     }()
     
     lazy var statsTitleLabel: UILabel = {
         let statsTitleLabel = UILabel()
         statsTitleLabel.text = "STATS"
-        statsTitleLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        statsTitleLabel.font = UIFont.boldSystemFont(ofSize: 25)
         statsTitleLabel.textColor = .black
         statsTitleLabel.textAlignment = .center
         return statsTitleLabel
     }()
     
+    lazy var containerStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [statsTitleLabel])
+        stackView.distribution = .fillProportionally
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.cornerRadius = 20
+        stackView.layer.masksToBounds = false
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.backgroundColor = .white
+        return stackView
+    }()
+    
     lazy var statsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .white.withAlphaComponent(0.95)
+        stackView.layer.cornerRadius = 20
+        stackView.layer.masksToBounds = false
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+    
+    lazy var statsLabelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: getStatsLabels())
         stackView.distribution = .fillProportionally
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .white.withAlphaComponent(0.95)
         stackView.layer.cornerRadius = 20
-        stackView.layer.masksToBounds = true
+        stackView.layer.masksToBounds = false
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+    
+    lazy var statsSliderStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: getStatsSliders())
+        stackView.distribution = .fillProportionally
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .white.withAlphaComponent(0.95)
+        stackView.layer.cornerRadius = 20
+        stackView.layer.masksToBounds = false
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     
@@ -60,7 +106,7 @@ class PokemonDetailViewController: UIViewController {
             label.font = UIFont.systemFont(ofSize: 18)
             label.textAlignment = .center
             label.textColor = .black
-            label.backgroundColor = .white
+            label.backgroundColor = .white.withAlphaComponent(0.8)
             label.layer.cornerRadius = 10
             label.layer.masksToBounds = true
             
@@ -69,7 +115,7 @@ class PokemonDetailViewController: UIViewController {
         
         let stackView = UIStackView(arrangedSubviews: labels)
         stackView.distribution = .fillProportionally
-        stackView.spacing = 10
+        stackView.spacing = 5
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -96,6 +142,12 @@ class PokemonDetailViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigation()
         setupView()
+        
+        self.pokemonAppearsAnimation()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            self.pokemonImageView.layer.removeAllAnimations()
+        }
     }
     
     private func setUpNavigation() {
@@ -109,7 +161,7 @@ class PokemonDetailViewController: UIViewController {
         
         nameLabel.text = pokemonVM?.name.capitalizingFirstLetter()
         
-        nameLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:35).isActive = true
+        nameLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant:25).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo:view.leadingAnchor, constant:20).isActive = true
         nameLabel.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant:-20).isActive = true
         
@@ -118,44 +170,76 @@ class PokemonDetailViewController: UIViewController {
         pokemonImageView.image = pokemonVM?.image
         
         NSLayoutConstraint.activate([
-            pokemonImageView.topAnchor.constraint(equalTo:nameLabel.topAnchor, constant:30),
-            pokemonImageView.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant:-20),
-            pokemonImageView.widthAnchor.constraint(equalToConstant:200),
-            pokemonImageView.heightAnchor.constraint(equalToConstant:200),
+            pokemonImageView.topAnchor.constraint(equalTo:nameLabel.topAnchor, constant:35),
+            pokemonImageView.centerXAnchor.constraint(equalTo:view.centerXAnchor, constant: 15),
+            pokemonImageView.widthAnchor.constraint(equalToConstant: 140),
+            pokemonImageView.heightAnchor.constraint(equalToConstant: 140),
         ])
         
         self.view.addSubview(typesStackView)
         
+        let typesStackViewHeight = pokemonVM?.types.count == 1 ? 30 : 60
         NSLayoutConstraint.activate([
-            typesStackView.topAnchor.constraint(equalTo:pokemonImageView.topAnchor, constant:20),
+            typesStackView.topAnchor.constraint(equalTo:pokemonImageView.topAnchor, constant:5),
             typesStackView.leadingAnchor.constraint(equalTo:view.leadingAnchor, constant:20),
             typesStackView.widthAnchor.constraint(equalToConstant:80),
-            typesStackView.heightAnchor.constraint(equalToConstant:65),
+            typesStackView.heightAnchor.constraint(equalToConstant:CGFloat(typesStackViewHeight)),
         ])
         
-        self.view.addSubview(statsStackView)
+        self.view.addSubview(containerStackView)
+        self.view.sendSubviewToBack(containerStackView)
         
         NSLayoutConstraint.activate([
-            statsStackView.topAnchor.constraint(equalTo:pokemonImageView.bottomAnchor, constant:20),
-            statsStackView.leadingAnchor.constraint(equalTo:view.leadingAnchor, constant:10),
-            statsStackView.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant:-10),
-            statsStackView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-40),
+            containerStackView.topAnchor.constraint(equalTo: pokemonImageView.bottomAnchor, constant:-10),
+            containerStackView.topAnchor.constraint(equalTo:pokemonImageView.bottomAnchor, constant:20),
+            containerStackView.leadingAnchor.constraint(equalTo:view.leadingAnchor, constant:10),
+            containerStackView.trailingAnchor.constraint(equalTo:view.trailingAnchor, constant:-10),
+            containerStackView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor, constant:-20),
         ])
+        
+        containerStackView.addArrangedSubview(statsTitleLabel)
+        containerStackView.addArrangedSubview(statsStackView)
+        
+        statsStackView.addArrangedSubview(statsLabelStackView)
+        statsStackView.addArrangedSubview(statsSliderStackView)
     }
     
-    func getStatsLabels() -> [UILabel] {
-        var labels: [UILabel] = [statsTitleLabel]
+    private func getStatsLabels() -> [UILabel] {
+        var labels: [UILabel] = []
         
         pokemonVM?.stats.forEach({ stat in
             let label = UILabel()
-            label.text = stat.name + ":  \(stat.baseStat)"
-            label.font = UIFont.italicSystemFont(ofSize: 20)
+            label.text = stat.name.uppercased()
+            label.font = UIFont.italicSystemFont(ofSize: 16)
             label.textColor = .black
-            label.textAlignment = .center
             labels.append(label)
         })
         
         return labels
     }
     
+    private func getStatsSliders() -> [UISlider] {
+        var sliders: [UISlider] = []
+        
+        pokemonVM?.stats.forEach({ stat in
+            let slider = UISlider()
+            slider.isUserInteractionEnabled = false
+            slider.thumbTintColor = .clear
+            slider.tintColor = .systemGreen
+            slider.minimumValue = 0
+            slider.maximumValue = 160
+            slider.value = Float(stat.baseStat)
+            sliders.append(slider)
+        })
+        
+        return sliders
+    }
+    
+    private func pokemonAppearsAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0.2, options: [.autoreverse, .repeat, .curveEaseInOut], animations: {
+            self.pokemonImageView.transform = CGAffineTransform(translationX: 0, y: -20)
+        }) { _ in
+            self.pokemonImageView.transform = .identity
+        }
+    }
 }
